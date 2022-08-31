@@ -79,7 +79,7 @@ int main() {
     int t = 1;
     if (many_test_cases) {
     	if (fast_cpp_stdio_enabled) {
-			fast_cpp_stdio;
+    		fast_cpp_stdio;
     		cin >> t;
     	} else {
     		t = read();
@@ -87,7 +87,7 @@ int main() {
     }
     while (t--)
     	solve();
-	return 0;
+    return 0;
 }
 ]]></content>
 	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
