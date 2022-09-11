@@ -21,9 +21,13 @@ alias pacclean='sudo pacman -Scc'
 alias pacupgrade='sudo pacman -Syyu'
 alias pacman='sudo pacman'
 
+# Git
+alias gpick='git cherry-pick'
+
 # Useful short name for some programs
 alias df='df -h'
 alias hx='helix'
+alias supxc='sudo proxychains'
 alias pxc='proxychains'
 alias python='python3'
 
@@ -31,6 +35,7 @@ alias python='python3'
 export EXTERNAL_ROOT=~/external_root
 export EXTERNAL_ROOT_BIN=$EXTERNAL_ROOT/bin
 export EXTERNAL_ROOT_LIB=$EXTERNAL_ROOT/lib
+export EXTRA_LD_LIBRARY_PATH=/usr/local/lib
 
 # Make sure external root is available
 if [ ! -d $EXTERNAL_ROOT_BIN ];then
@@ -117,6 +122,18 @@ if [ "$(echo $PATH | grep ${EXTERNAL_ROOT_BIN} 2> /dev/null)" == "" ];then
     pathcat $EXTERNAL_ROOT_BIN
 fi
 
+# Add user-build programs lib to ld library path
+
+if [ "$(echo $LD_LIBRARY_PATH | grep ${EXTRA_LD_LIBRARY_PATH} 2> /dev/null)" == "" ];then
+    if [ "${LD_LIBRARY_PATH}" == "" ];then
+        export LD_LIBRARY_PATH="${EXTRA_LD_LIBRARY_PATH}"
+    else
+        export LD_LIBRARY_PATH="${EXTRA_LD_LIBRARY_PATH}:${LD_LIBRARY_PATH}"
+    fi
+fi
+
+# Add external root user-build programs lib to ld library path
+
 if [ "$(echo $LD_LIBRARY_PATH | grep ${EXTERNAL_ROOT_LIB} 2> /dev/null)" == "" ];then
     if [ "${LD_LIBRARY_PATH}" == "" ];then
         export LD_LIBRARY_PATH="${EXTERNAL_ROOT_LIB}"
@@ -172,7 +189,7 @@ function knl_build_env() {
         toolChainDir="${PWD}"
 
         # Arm toolchain
-        armToolChain="$(cd ${toolChainDir} && ls -d *arm-* 2> /dev/null)"
+        armToolChain="$(cd ${toolChainDir} && ls -d *-arm* 2> /dev/null)"
         if [ ! -z "${armToolChain}" ] && [ $(expr index "${armToolChain}" " ") == 0 ];then
             addon_path=${toolChainDir}/${armToolChain}/bin
             if [ "$(echo $PATH | grep $addon_path 2> /dev/null)" == "" ];then
@@ -183,7 +200,7 @@ function knl_build_env() {
         fi
 
         # Aarch64 toolchain
-        aarch64ToolChain="$(cd ${toolChainDir} && ls -d *aarch64-* 2> /dev/null)"
+        aarch64ToolChain="$(cd ${toolChainDir} && ls -d *-aarch64* 2> /dev/null)"
         if [ ! -z "${aarch64ToolChain}" ] && [ $(expr index "${aarch64ToolChain}" " ") == 0 ];then
             addon_path=${toolChainDir}/${aarch64ToolChain}/bin
             if [ "$(echo $PATH | grep $addon_path 2> /dev/null)" == "" ];then
@@ -218,7 +235,7 @@ T_OBJDUMP=llvm-objdump
 T_STRIP=llvm-strip
 
 T_OUT=out
-T_DEFCONFIG=violet_defconfig
+T_DEFCONFIG=vendor/violet-perf_defconfig
 
 KNL_CONFIG=arch/${T_ARCH}/configs/${T_DEFCONFIG}
 
