@@ -5,11 +5,13 @@
 #include <bitset>
 #include <cmath>
 #include <cstring>
+#include <functional>
 #include <iomanip>
 #include <iostream>
 #include <map>
 #include <queue>
 #include <set>
+#include <unordered_map>
 #include <vector>
 
 using namespace std;
@@ -42,6 +44,7 @@ typedef priority_queue<dint, vector<dint>, greater<dint>> pqueue_lower;
 typedef pair<int, int> point;
 
 #define fast_cpp_stdio ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr)
+#define func(ret, args...) std::function<ret(args)>
 #define fill(x, v) memset(x, v, sizeof(x))
 #define printline putchar('\n')
 #define printspace putchar(' ')
