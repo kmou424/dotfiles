@@ -50,6 +50,9 @@ function checkDirContainName() {
 function mount_smb() {
 	# $1 is mountpoint
 	# $2 is target
+	if [ ! -d $1 ];then
+		mkdir -p $1
+	fi
 	mountpoint ${1} &> /dev/null
 	if [ $? -ne 0 ];then
 	        sudo mount -t drvfs ${2} ${1}
