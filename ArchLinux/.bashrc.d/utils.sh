@@ -180,7 +180,7 @@ function knl_build_config() {
 }
 
 function knl_build() {
-    make O=${T_OUT} $@ \
+    make O=${T_OUT} -j$(nproc) $@ \
          ARCH=${T_ARCH} \
          SUBARCH=${T_SUBARCH} \
          CROSS_COMPILE=${T_CROSS_COMPILE} \
