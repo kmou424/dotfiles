@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/zsh
 
 # Github proxy
 ghProxyUrl=""
@@ -19,13 +19,13 @@ function ghclone() {
 }
 
 function ghssh() {
-    if [ "$1" == "add" ];then
+    if [ "$1" = "add" ];then
         if [ -n "$2" ] && [ -n "$3" ];then
             git remote add ssh "${ghSSHUrl}:$2/$3.git"
         else
             echo "Please use give github username and name of repository"
         fi
-    elif [ "$1" == "del" ];then
+    elif [ "$1" = "del" ];then
         if [ -n "$2" ];then
             git remote rm ssh
         fi
@@ -67,12 +67,12 @@ function pathreset() {
 function pathcat() {
     if [ -n "$1" ];then
         APPEND=""
-        if [ "$1" == "pwd" ];then
+        if [ "$1" = "pwd" ];then
             APPEND="${PWD}"
         elif [ -d "$1" ];then
             APPEND="$1"
         fi
-        if [ -n "$2" ] && [ "$2" == "--back" ];then
+        if [ -n "$2" ] && [ "$2" = "--back" ];then
             export PATH="${PATH}:${APPEND}"
         else
             export PATH="${APPEND}:${PATH}"
@@ -96,24 +96,24 @@ function checkToolChainDir() {
     echo "Checking toolchain..."
     RET=0
     checkDirContainName "$1" "gcc"
-    if [ $? == 1 ];then
+    if [ $? = 1 ];then
         RET=1
     fi
     checkDirContainName "$1" "clang"
-    if [ $? == 1 ];then
+    if [ $? = 1 ];then
         RET=1
     fi
     return $RET
 }
 
 function knl_build_env() {
-    if [ "$1" == "init" ];then
+    if [ "$1" = "init" ];then
 	checkToolChainDir "${PWD}"
-        if [ $? == 0 ];then
+        if [ $? = 0 ];then
             echo "Can't find any toolchain dir in ${PWD}!"
             return
         fi
-        if [ "${buildEnvIsInited}" == "true" ];then
+        if [ "${buildEnvIsInited}" = "true" ];then
             printBuildEnv
             return
         else
@@ -126,9 +126,9 @@ function knl_build_env() {
 
         # Arm toolchain
         armToolChain="$(cd ${toolChainDir} && ls -d *-arm* 2> /dev/null)"
-        if [ ! -z "${armToolChain}" ] && [ $(expr index "${armToolChain}" " ") == 0 ];then
+        if [ ! -z "${armToolChain}" ] && [ $(expr index "${armToolChain}" " ") = 0 ];then
             addon_path=${toolChainDir}/${armToolChain}/bin
-            if [ "$(echo $PATH | grep $addon_path 2> /dev/null)" == "" ];then
+            if [ "$(echo $PATH | grep $addon_path 2> /dev/null)" = "" ];then
                 pathcat "${addon_path}"
             fi
         else
@@ -137,9 +137,9 @@ function knl_build_env() {
 
         # Aarch64 toolchain
         aarch64ToolChain="$(cd ${toolChainDir} && ls -d *-aarch64* 2> /dev/null)"
-        if [ ! -z "${aarch64ToolChain}" ] && [ $(expr index "${aarch64ToolChain}" " ") == 0 ];then
+        if [ ! -z "${aarch64ToolChain}" ] && [ $(expr index "${aarch64ToolChain}" " ") = 0 ];then
             addon_path=${toolChainDir}/${aarch64ToolChain}/bin
-            if [ "$(echo $PATH | grep $addon_path 2> /dev/null)" == "" ];then
+            if [ "$(echo $PATH | grep $addon_path 2> /dev/null)" = "" ];then
                 pathcat "${addon_path}"
             fi
         else
@@ -147,7 +147,7 @@ function knl_build_env() {
         fi
 
 	printBuildEnv
-    elif [ "$1" == "reset" ];then
+    elif [ "$1" = "reset" ];then
         pathreset
         buildEnvIsInited="false"
         toolChainDir=""

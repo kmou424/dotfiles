@@ -8,12 +8,12 @@
 
 - Step 2:
 
-  Add follow commands into your `~/.bashrc`
+  Add follow commands into your `~/.zshrc`
 
   ```shell
-  # Import custom bashrc
-  if [ -f ~/.bashrc.d/main.sh ];then
-          chmod +x ~/.bashrc.d/main.sh
-          . ~/.bashrc.d/main.sh
+  # Import custom zshrc
+  if [ -f ~/.zshrc.d/main.sh ];then
+          chmod +x ~/.zshrc.d/main.sh
+          . ~/.zshrc.d/main.sh
   fi
   ```

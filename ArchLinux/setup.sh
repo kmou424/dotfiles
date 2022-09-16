@@ -1,16 +1,18 @@
-#!/usr/bin/bash
+#!/usr/bin/zsh
 
-if [ $1 == "install" ];then
-	if [ -d ~/.bashrc.d ];then
-		if [ -d ~/.bashrc.d.bak ];then
-			rm -r ~/.bashrc.d.bak
+RCDOTD=.zshrc.d
+
+if [ $1 = "install" ];then
+	if [ -d ~/${RCDOTD} ];then
+		if [ -d ~/${RCDOTD}.bak ];then
+			rm -r ~/${RCDOTD}.bak
 		fi
-		mv ~/.bashrc.d ~/.bashrc.d.bak
+		mv ~/${RCDOTD} ~/${RCDOTD}.bak
 	fi
-	echo "Copying .bashrc.d ${HOME}/.bashrc.d"
-	cp -r .bashrc.d ~/.bashrc.d
-elif [ $1 == "update" ];then
-	rm -r .bashrc.d
-	echo "Copying ${HOME}/.bashrc.d to .bashrc.d"
-	cp -r ~/.bashrc.d .
+	echo "Copying ${RCDOTD} ${HOME}/${RCDOTD}"
+	cp -r ${RCDOTD} ~/${RCDOTD}
+elif [ $1 = "update" ];then
+	rm -r ${RCDOTD}
+	echo "Copying ${HOME}/${RCDOTD} to ${RCDOTD}"
+	cp -r ~/${RCDOTD} .
 fi
