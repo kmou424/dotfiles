@@ -7,7 +7,7 @@ if [ $1 == "install" ];then
 		fi
 		mv ~/.bashrc.d ~/.bashrc.d.bak
 	fi
-	echo "Copying .bashrc.d ${HOME}/.bashrc"
+	echo "Copying .bashrc.d ${HOME}/.bashrc.d"
 	cp -r .bashrc.d ~/.bashrc.d
 elif [ $1 == "update" ];then
 	rm -r .bashrc.d
