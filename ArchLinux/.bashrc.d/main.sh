@@ -5,9 +5,6 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-# Set PS1
-PS1='[\u@\h \w]\$ '
-
 # Backup
 PATH_BAK="${PATH}"
 
