@@ -3,7 +3,7 @@
 - Step 1:
 
   ```shell
-  # ./setup.sh install
+  $ ./setup.sh install
   ```
 
 - Step 2:
