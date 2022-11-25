@@ -22,11 +22,14 @@ alias pacman='sudo pacman'
 alias gpick='git cherry-pick'
 
 # Useful short name for some programs
+alias cls='clear'
 alias df='df -h'
 alias hx='helix'
 alias supxc='sudo proxychains'
 alias pxc='proxychains'
 alias python='python3'
+
+alias linklib='sudo ldconfig /usr/local/lib'
 
 # External root (for personal build program)
 export EXTERNAL_ROOT=~/external_root
@@ -80,4 +83,9 @@ PATH_BAK=$PATH
 if [ -f ~/.zshrc.d/mount_smb.sh ];then
 	chmod +x ~/.zshrc.d/mount_smb.sh
 	. ~/.zshrc.d/mount_smb.sh
+fi
+
+if [ -f ~/.zshrc.d/static_ip.sh ];then
+        chmod +x ~/.zshrc.d/static_ip.sh
+        . ~/.zshrc.d/static_ip.sh
 fi
